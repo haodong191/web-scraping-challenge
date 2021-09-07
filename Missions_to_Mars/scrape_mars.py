@@ -14,7 +14,6 @@ def scrape():
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
 
-
     #NASA Mars News
     browser.visit('https://redplanetscience.com/')
     time.sleep(5)
@@ -76,8 +75,8 @@ def scrape():
 
     mars_html = {
     "news_title":news_title,
-    "news_p": news_p,
-    "featured_img_url": featured_image_url,
+    "news_p":news_p,
+    "featured_img_url":featured_image_url,
     "facts":mars_fact_table,
     "hemispheres":hemisphere_image_urls
     }

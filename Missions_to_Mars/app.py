@@ -18,7 +18,7 @@ def home():
 @app.route("/scrape")
 def scrape():
 
-    mars_html = scrape_mars.scrape()
+    mars_html = scrape_mars()
 
     mongo.db.facts.update({}, mars_html, upsert=True)
 
