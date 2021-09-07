@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 from splinter import Browser
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -205,35 +199,19 @@ mars_html = {
 
 mars_html
 
-
-# In[29]:
+browser.quit()
 
 
 #Import to Mongo
 conn = 'mongodb://localhost:27017'
 client = pymongo.MongoClient(conn)
 
-    db = client.mars_db
+db = client.mars_db
 
-    facts = db.facts
+facts = db.facts
 
-    db.facts.drop()
+db.facts.drop()
 
-    post = mars_html
+post = mars_html
 
-    facts.insert_one(post)
-
-
-# In[33]:
-
-
-results = facts.find()
-for result in results:
-    print(result)
-
-
-# In[ ]:
-
-
-
-
+facts.insert_one(post)
