@@ -45,10 +45,8 @@ def scrape():
     browser.visit('https://galaxyfacts-mars.com')
     facts=pd.read_html('https://galaxyfacts-mars.com')
     facts
-    mars_facts= facts[1]
-    mars_facts
-    mars_fact_table = mars_facts.to_html()
-    print(mars_fact_table)
+    mars_fact_table= facts[1]
+    mars_fact_table
 
     #Mars Hemispheres
     url = 'https://marshemispheres.com/'
@@ -70,32 +68,15 @@ def scrape():
         hemisphere_image_urls.append({"title":hemisphere_header, "img_url":hemisphere_image_url})
         browser.links.find_by_partial_text('Back').click()
         time.sleep(1)
-            
-    hemisphere_image_urls
 
     mars_html = {
     "news_title":news_title,
     "news_p":news_p,
     "featured_img_url":featured_image_url,
     "facts":mars_fact_table,
-    "hemispheres":hemisphere_image_urls
+    "hemisphere_image_urls":hemisphere_image_urls
     }
 
     mars_html
 
     browser.quit()
-
-
-    #Import to Mongo
-    conn = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(conn)
-
-    db = client.mars_db
-
-    facts = db.facts
-
-    db.facts.drop()
-
-    post = mars_html
-
-    facts.insert_one(post)
