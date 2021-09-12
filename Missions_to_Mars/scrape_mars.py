@@ -11,7 +11,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def scrape():
 
-    executable_path = {'executable_path': ChromeDriverManager().install()}
+    executable_path = {'executable_path': 'chromedriver'}
     browser = Browser('chrome', **executable_path, headless=False)
 
     #NASA Mars News
@@ -25,11 +25,6 @@ def scrape():
     for result in results:
             news_title = result.find('div', class_='content_title').text
             news_p = result.find('div', class_='article_teaser_body').text
-            
-            print('-----------------')
-            print(news_title)
-            print(news_p)
-
 
     #JPL Mars Space Images below
     browser.visit('https://spaceimages-mars.com/')
@@ -39,14 +34,12 @@ def scrape():
     image_soup = BeautifulSoup(image_html, 'html.parser')
     image_results = image_soup.find('img', class_='fancybox-image')['src']
     featured_image_url = baseurl + image_results
-    featured_image_url 
 
     #Mars Facts
     browser.visit('https://galaxyfacts-mars.com')
     facts=pd.read_html('https://galaxyfacts-mars.com')
-    facts
-    mars_fact_table= facts[1]
-    mars_fact_table
+    mars_fact_table= facts[0]
+    mars_fact_table = mars_fact_table.to_html(index = False, header = False, classes="table table-success table-striped", bold_rows = True)
 
     #Mars Hemispheres
     url = 'https://marshemispheres.com/'
@@ -69,14 +62,14 @@ def scrape():
         browser.links.find_by_partial_text('Back').click()
         time.sleep(1)
 
-    mars_html = {
+    mars_data = {
     "news_title":news_title,
     "news_p":news_p,
     "featured_img_url":featured_image_url,
     "facts":mars_fact_table,
-    "hemisphere_image_urls":hemisphere_image_urls
+    "hemispheres":hemisphere_image_urls
     }
 
-    mars_html
-
     browser.quit()
+
+    return mars_data
