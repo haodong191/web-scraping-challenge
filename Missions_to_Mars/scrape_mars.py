@@ -38,7 +38,7 @@ def scrape():
     #Mars Facts
     browser.visit('https://galaxyfacts-mars.com')
     facts=pd.read_html('https://galaxyfacts-mars.com')
-    mars_fact_table= facts[0]
+    mars_fact_table= facts[1]
     mars_fact_table = mars_fact_table.to_html(index = False, header = False, classes="table table-success table-striped", bold_rows = True)
 
     #Mars Hemispheres
